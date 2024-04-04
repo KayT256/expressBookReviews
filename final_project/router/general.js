@@ -9,20 +9,20 @@ public_users.post("/register", (req, res) => {
   const username = req.body.username
   const password = req.body.password
 
-  if (username && password) {
+  if (isValid(username) && isValid(password)) {
     const usersWithSameUsername = users.filter(user => user.username == username)
     if (usersWithSameUsername.length == 0) {
       users.push({
         'username': username,
         'password': password
       })
-      return res.status(200).json({ message: 'User successfully registred. Now you can login' })
+      return res.status(200).json({ 'message': 'User successfully registred. Now you can login' })
     } else {
-      return res.status(404).json({ message: 'User already exists!' })
+      return res.status(404).json({ 'message': 'User already exists!' })
     }
   }
 
-  return res.status(404).json({ message: 'Unable to register user' })
+  return res.status(404).json({ 'message': 'Unable to register use. Invalid or missing username or password' })
 });
 
 // Get the book list available in the shop
